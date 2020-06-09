@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Hoteles
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (ionInput)="buscarHotel($event)" placeholder="Nombre del hotel" ></ion-searchbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <span><b>{{buscador.HotelDestino}}</b></span>, 
+        De <span>{{buscador.front_form.fecha_ini}} a {{buscador.front_form.fecha_fin}}</span>,
+        {{buscador.habitacionesRQ.noches}} noches, {{numAdultos}} Adultos,
+        <span>{{numMenores}}</span> Menores
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="ocultar != '' ? '' : 'hidden'">
+    <ion-row>
+      <ion-col text-center>
+        <span> Se encontraron {{numHoteles}} hoteles. </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+      <ion-card *ngFor="let tarifa of tarifas" (click)="tarifa.proveedor != '3' ? openTarifa(tarifa) : openTarifaDO(tarifa)">
+          <ion-card-header>
+            <!--<ion-fab horizontal="end" vertical="top" class="ng-tns-c4-2 md fab-horizontal-end fab-vertical-top fab-edge hydrated">
+              <ion-fab-button>
+                <ion-icon  name="star"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>-->
+            <ion-card-subtitle style="text-align: end;">
+              <ion-text color="primary">{{buscador.codigo}}</ion-text> 
+            </ion-card-subtitle>
+            <ion-card-title>
+              <ion-text style="font-size: 18px;" color="dark">{{tarifa.nombre_hotel}}</ion-text>
+            </ion-card-title>
+            {{tarifa.destino.name}}, {{tarifa.destino.destinationsCode0}} | 
+            <b>
+              {{
+                idAgencia == 9 ?
+                  tarifa.proveedor == 1 ? tarifa.foto.prov+' - Socio Online' :
+                  tarifa.proveedor == 2 ? tarifa.foto.prov+' - Conectividad' :
+                  tarifa.proveedor == 3 ? tarifa.foto.prov+' - Socio Online' :
+                  tarifa.proveedor == 4 ? tarifa.foto.prov+' - Conectividad' :
+                  tarifa.proveedor == 5 ? tarifa.foto.prov+' - Conectividad' : tarifa.foto.prov+' - Tradicional'
+              
+                : 
+                  tarifa.proveedor == 1 ? 'Socio Online' :
+                  tarifa.proveedor == 2 ? 'Conectividad' :
+                  tarifa.proveedor == 3 ? 'Socio Online' :
+                  tarifa.proveedor == 4 ? 'Conectividad' :
+                  tarifa.proveedor == 5 ? 'Conectividad' : 'Tradicional'              
+              }}
+            </b>     
+          </ion-card-header>
+          <img style="height: 150px;" src="{{tarifa.proveedor == 0 ? 'https://rutamayatravel.com/'+tarifa.foto.rutaImage : tarifa.proveedor == 4 ? 'https://rutamayatravel.com/'+tarifa.foto.rutaImage : tarifa.foto.rutaImage}}">
+          <ion-card-content>
+            <ion-row *ngIf="!tarifa.Warning">              
+              <ion-col size="8" class="ion-text-center">
+                  {{tarifa.Desglose.mejorHabitacion}} <br>
+                  Desde: <br>
+                  <b style="color: red;"> $ {{tarifa.Desglose.menorPrecio}} {{tarifa.Desglose.moneda}} </b><br>
+                  {{tarifa.Desglose.mejorPlan}}
+              </ion-col>
+              <ion-col size="4" style="text-align: center;margin-top: auto;">
+                <!--<div *ngif="typeof tarifa.estrellas==='number'">
+                  <span *ngfor="estrella in tarifa.estrellas" style="color:#F90"> 
+                    <ion-icon name="star"></ion-icon>
+                  </span>
+                </div>-->
+                <!--<ion-button  color="primary" class="button-small">
+                  Detalles 
+                </ion-button> <br>-->
+                <ion-button color="primary" class="button-small">
+                  Ver tarifas 
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="tarifa.Warning">
+              <ion-col>
+                <div style="color: red;">
+                  {{ tarifa.Warning.warning == true ? tarifa.Warning.mensaje : 'No se encontraron tarifas con la busqueda solicitada. Por favor modifique su busqueda.' }}
+                </div>
+              </ion-col>
+            </ion-row>
+
+          </ion-card-content>   
+      </ion-card>
+ 
+  
+
+</ion-content>

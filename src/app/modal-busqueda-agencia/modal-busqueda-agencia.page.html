@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Agencia
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" shape="round" (click)="salirModal()" color="light">
+        <ion-icon name="backspace"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding">  
+
+<ion-searchbar placeholder="Seleccionar Agencia" (ionInput)="searchAgencia($event)" showCancelButton="never"></ion-searchbar>
+
+<section>
+  <ion-list>    
+    <div *ngFor="let item of itemsAgencia">      
+      <ion-item (click)="closeModal(item)">
+        <ion-label>
+          <h2><img style="width: 12%;" [src]="'https://www.rutamayatravel.com/imagenes/' + item.foto"> {{item.nombre_agencia}}</h2>
+        </ion-label>
+      </ion-item>      
+    </div>
+  </ion-list>
+  
+</section>
+        
+</ion-content>

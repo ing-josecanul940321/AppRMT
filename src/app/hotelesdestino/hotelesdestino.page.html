@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Hotel / Destino
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding">  
+
+  <ion-searchbar placeholder="Buscar Hotel/Destino" (ionInput)="buscarHotelDestino($event)" showCancelButton="never"></ion-searchbar>
+
+<section hidden="{{Historial}}">
+  <ion-list>
+    <ion-list-header style="background-color: #c6c6c6;">
+      <ion-label><b>Historial</b></ion-label>
+    </ion-list-header>
+    <div *ngFor="let item of itemsHistorial">
+      <ion-item lines="none" (click)="postHotelDestino(item)">
+        <ion-label>
+          <h2><ion-icon name="time"></ion-icon> {{item.Nombre}}</h2>
+        </ion-label>
+      </ion-item>      
+    </div>
+  </ion-list>
+</section>
+
+
+
+<section hidden="{{invisible}}">
+  <ion-list [hidden]="destinos == 0 ? 'hidden' : ''">    
+    <ion-list-header style="background-color: #c6c6c6;">
+      <ion-label><b>Destinos</b></ion-label>
+    </ion-list-header>
+    <div *ngFor="let item of items">      
+      <ion-item *ngIf="item.Tipo=='Destino' ? 'hidden' : ''" (click)="postHotelDestino(item)">
+        <ion-label>
+          <h2><ion-icon name="pin"></ion-icon> {{item.Nombre}}</h2>
+        </ion-label>
+      </ion-item>      
+    </div>
+  </ion-list>
+  <ion-list [hidden]="zonas == 0 ? 'hidden' : ''">
+    <ion-list-header  style="background-color: #c6c6c6;">
+      <ion-label><b>Zonas</b></ion-label>
+    </ion-list-header>
+    <div *ngFor="let item of items">
+      <ion-item *ngIf="item.Tipo=='Zona' ? 'hidden' : ''" (click)="postHotelDestino(item)">
+        <ion-label>
+          <h2><ion-icon name="compass"></ion-icon> {{item.Nombre}}</h2>
+        </ion-label>
+      </ion-item>      
+    </div>
+  </ion-list> 
+  <ion-list [hidden]="hoteles == 0 ? 'hidden' : ''">
+    <ion-list-header style="background-color: #c6c6c6;">
+      <ion-label><b>Hoteles</b></ion-label>
+    </ion-list-header>
+    <div *ngFor="let item of items">
+      <ion-item *ngIf="item.Tipo=='Hotel' ? 'hidden' : ''" (click)="postHotelDestino(item)">
+        <ion-label>
+          <h2><ion-icon name="briefcase"></ion-icon> {{item.Nombre}}</h2>
+        </ion-label>
+      </ion-item>      
+    </div>
+  </ion-list>  
+</section>
+        
+</ion-content>

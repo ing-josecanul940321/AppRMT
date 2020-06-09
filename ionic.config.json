@@ -1,0 +1,7 @@
+{
+  "name": "AppRMT",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,22 @@
+:host {
+    span {
+        color: var(--ion-color-primary);
+    }
+
+    ion-content {
+        --background: var(--ion-color-light);
+    }
+
+    /*ion-item {
+        border-radius: 0;
+        border-bottom: 1px dotted var(--ion-color-medium);
+    }*/
+
+    ion-card {
+        background-color: white;
+
+        &.no-radius {
+            border-radius: 0;
+        }
+    }
+}

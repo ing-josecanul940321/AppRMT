@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Ruta Maya Travel
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <img src="https://rutamayatravel.com/imagenes/{{usuario.datosUsuario.foto1}}" >
+        
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" style="padding:0px">
+        <ion-card class="rmt-verde" (click)="openBuscador()">
+          <ion-card-header>
+            <ion-icon style="font-size: 120px" name="search"></ion-icon><br>
+            <span>BUSCADOR</span>
+          </ion-card-header>          
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" style="padding:0px"> 
+        <ion-card (click)="openReservacion()">
+          <ion-card-header>
+            <ion-icon size="large" name="calendar"></ion-icon><br>
+            <span>RESERVACIONES</span>
+          </ion-card-header> 
+        </ion-card>
+        <ion-card (click)="openContacto()">
+          <ion-card-header>
+            <ion-icon size="large" name="contacts"></ion-icon><br>
+            <span>CONTACTO</span>
+          </ion-card-header>
+        </ion-card>          
+      </ion-col>
+    </ion-row> 
+    <ion-row>
+      <ion-col> 
+        <ion-button expand="block"(click)="openBloqueos()">
+          <span>Bloqueos</span>
+        </ion-button>
+      </ion-col>
+      <ion-col>          
+        <ion-button expand="block" (click)="openBlog()">
+          <span> Blog</span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="openFormulario()">
+          <span>Suscribete</span>
+        </ion-button>
+      </ion-col>      
+    </ion-row>
+  </ion-grid>  
+
+</ion-content>

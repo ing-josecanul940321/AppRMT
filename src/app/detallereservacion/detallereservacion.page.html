@@ -1,0 +1,231 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Reservacion: {{Reservacion.id_reservacion}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-grid>
+    <ion-row>
+      <ion-col style="text-align: right;color:gray">
+        Reservado: {{Reservacion.log}}<br>
+        Elaboró: {{usuario.datosUsuario.nombre_usuario}} | Tipo:{{usuario.datosUsuario.manual=='false'?'Normal':'Manual'}} 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card [color]="Reservacion.estatus=='C'? 'danger' : 'success'" class="card-content">
+          <ion-card-content>
+            Estatus: <b>{{Reservacion.estatus=='C'?'Cancelado':'Liberado'}}</b>
+            <br><span><b>{{Reservacion.motivo}}</b></span>
+          </ion-card-content>          
+        </ion-card> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h6>Fecha límite para pagar: {{Reservacion.fecha_limite | date: 'dd/MM/yyyy'}} </h6>
+        <small>El tiempo límite para pagar está sujeto a lo establecido en el acuerdo de <a class="text-info" href="https://rutamayatravel.com/formatos/Terminos-y-condiciones-Grales-de-contat-de-servicios-a-RMT.pdf" target="_blank">Términos y Condiciones</a> de esta empresa.</small>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        Agencia:
+        <ion-item>
+          <ion-avatar slot="start">
+            <img src="https://rutamayatravel.com/imagenes/{{Reservacion.foto}}" style="width: 60px;">
+          </ion-avatar>
+          <ion-label>
+            <p><b>{{Reservacion.nombre_agencia}}</b> <br>
+              Calle {{Reservacion.calle_agencia}}  #Ext {{Reservacion.num_exterior_agencia}} Col {{Reservacion.id_colonia_agencia}} CP {{Reservacion.cp_agencia}}<br>
+            Teléfono: {{Reservacion.tel_agencia}} <br></p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        Hotel:
+        <ion-item>
+          <ion-avatar slot="start">
+            <img src="https://rutamayatravel.com/imagenes/{{Reservacion.foto1}}" style="width: 60px;"/>
+          </ion-avatar>
+          <ion-label>
+            <p><b>{{Reservacion.nombre_hotel}}</b> <br>
+              {{Reservacion.estrellas}} ESTRELLAS<br> 
+              Calle {{Reservacion.calle_hotel}}  #Ext {{Reservacion.num_exterior_hotel}} Col {{Reservacion.id_colonia_hotel}} CP {{Reservacion.cp_hotel}}<br>
+              Teléfono: {{Reservacion.tel_hotel1}} <br></p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h6>Detalles de reservación: </h6>
+        
+            <b>Fecha de entrada:</b> {{Reservacion.fecha_inicial | date: 'dd/MM/yyyy'}}<br>
+            <b>Fecha de salida:</b> {{Reservacion.fecha_final | date: 'dd/MM/yyyy'}}<br>
+            <b>Número de noches:</b> {{Reservacion.num_noches}}<br>
+            <b>Número de habitaciones:</b> {{Reservacion.num_habitaciones}}
+            <p></p>
+            <b>Plan:</b> {{Reservacion.nombre_plan}}<br>
+            <b>Cliente:</b> {{Reservacion.nombre_cliente}}<br>
+            <b>Teléfono:</b> {{Reservacion.tel_cliente}}<br>
+            <b>Agente preferido:</b> {{Reservacion.nombre_agente}}
+            <p></p>
+
+            <h6>Información personal por habitación: </h6>
+
+
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  
+                </ion-col>
+                <ion-col>
+                  Tipo
+                </ion-col>
+                <ion-col>
+                  Nombre
+                </ion-col>
+                <ion-col>
+                  Edad
+                </ion-col>
+              </ion-row>
+              <div *ngFor="let habitacion of Detalles.Habitaciones">
+                <ion-row>
+                  <ion-col>
+                    {{habitacion.tipo_habitacion}}
+                  </ion-col>
+                  <ion-col>
+                    {{habitacion.base_habitacion}}
+                  </ion-col>
+                  <ion-col>
+                    {{habitacion.num_adultos}}
+                  </ion-col>
+                  <ion-col>
+                    {{habitacion.num_ninios}}
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let pasajeros of habitacion.Pasajeros">
+                  <ion-col>
+                    
+                  </ion-col>
+                  <ion-col>
+                    {{pasajeros.tipo}}
+                  </ion-col>
+                  <ion-col>
+                    {{pasajeros.nombre}}
+                  </ion-col>
+                  <ion-col>
+                    {{pasajeros.edad}}
+                  </ion-col>
+                </ion-row>
+              </div>              
+            </ion-grid>
+
+            <span> A=Adulto | N=Niño | J=Junior </span>
+
+            <h6>Información adicional: </h6>
+            <div style="font-size: 12px">
+              <p>{{Reservacion.observaciones}}</p>
+            </div>
+
+            <a href="https://www.rutamayatravel.com/reservaciones/sur3/formatos/CuponMovil/id/{{Reservacion.id_reservacion}}/idAgencia/{{Reservacion.id_agencia}}"><ion-button expand="block" color="primary">Descargar cupón</ion-button></a>
+
+            <ion-button (click)="openPago()" expand="block" style="font-size: 12px; background-color: #a3be33"> <ion-icon name=""> </ion-icon> Generar liga de pago </ion-button>
+
+            <h6>Información de cancelaciones: </h6>
+            <div style="font-size: 12px; background-color: #fcf8e3; border-color: #faebcc;">
+                <div  style="color: #8a6d3b">{{Reservacion.politicas_cancelacion}}</div>
+            </div>
+
+            <h6> Recibos Generados:</h6>
+
+            <div style="font-size: 12px">
+              <ion-grid *ngFor="let recibo of Detalles.RecibosGenerados">
+                    <ion-row>
+                        <ion-col col-2>   
+                            <b>Folio:</b>
+                            <br>{{recibo.Folio}}
+                          </ion-col>
+                          <ion-col col-3>   
+                              <b>Fecha:</b>
+                              <br>{{recibo.Fecha_recibo}}
+                            </ion-col>
+                            <ion-col col-3>
+                                <b>Importe:</b><br>
+                                {{recibo.importe|currency}}
+                            </ion-col>
+                           <ion-col col-2 >
+                              <b>Comisión:</b><br>
+                              {{recibo.comision}} %
+                           </ion-col>
+                           <ion-col col-2>
+                              <b>FP:</b><br> {{recibo.FP}}
+                          </ion-col>
+                    </ion-row>                           
+                  </ion-grid>
+                  <ion-grid>
+                      <ion-row>
+                          <ion-col col-2>   
+                             
+                            </ion-col>
+                            <ion-col col-3 >   
+                                <b>Total:</b><br>
+                                
+                              </ion-col>
+                            <ion-col col-3>
+                            
+                                {{Reservacion.total|currency}}
+                            </ion-col>
+                             <ion-col col-2>
+                                
+                             </ion-col>
+                             <ion-col col-2>
+                                
+                            </ion-col>
+                      </ion-row>
+                    <ion-row>
+                      <ion-col col-2 >   
+                          
+                        </ion-col>
+                        <ion-col col-3>   
+                           
+                            <b>Saldo:</b><br>
+                          </ion-col>
+                        <ion-col col-3 >
+                            
+                            {{Reservacion.saldo|currency}}
+                        </ion-col>
+                         <ion-col col-2 >
+                            
+                         </ion-col>
+                         <ion-col col-2>
+                           
+                        </ion-col>
+                  </ion-row>       
+                  </ion-grid>
+                  
+                  </div>
+      
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Fechas de estancia
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-calendar
+    [(ngModel)]="dateRange"
+    [options]="optionsRange"
+    [type]="type"
+    [format]="DD/MM/YYYY">
+  </ion-calendar>
+
+  <ion-button expand="block" (click)="postCalendario()">Aplicar</ion-button>
+
+</ion-content>

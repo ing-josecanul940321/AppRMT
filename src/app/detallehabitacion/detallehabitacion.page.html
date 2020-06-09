@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Detalle habitación
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" shape="round" (click)="salirModal()" color="light">
+        <ion-icon name="backspace"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card style="text-align: center;">
+    <ion-card-header style="background-color: white;color: #5968ad;">
+      <b>{{Plan.tipo_plan}}</b> <br>      
+    </ion-card-header>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row style="color:#5968ad;font-size: 14px;">
+      <ion-col size="8">
+        {{ proveedor == '0' ? Plan.nombrePlan : proveedor != '0' && idAgencia == 9 ? Plan.nombrePlan : '' }}
+      </ion-col>
+      <ion-col size="4" style="text-align: right;">
+        {{buscador.codigo}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-card >
+    <ion-card-header>
+      <ion-icon name="alert"> </ion-icon>
+      Gastos de cancelación
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col hidden="{{ocultar}}" >
+            <div *ngIf="proveedor != '1' && proveedor !='5'" style="font-size: 12px; background-color: #fcf8e3; border-color: #faebcc;padding: 10px;
+            border-radius: 5px;text-align: center;">
+              <div *ngIf="proveedor == '3'" style="color: #8a6d3b" [innerHTML]="Plan.politicas_cancelacion"></div>          
+              <div *ngIf="proveedor != '3'" style="color: #8a6d3b">{{ Plan.politicas_cancelacion }}</div>          
+            </div>
+    
+            <div *ngFor="let politica of Politicas" [hidden]="politica.descripcion != null ? '' : 'hidden'" style="font-size: 12px; background-color: #fcf8e3; border-color: #faebcc;padding: 10px;
+            border-radius: 5px">    
+              <ion-row>
+                <ion-col style="color: #8a6d3b">
+                  {{politica.descripcion}} <br>
+                  <div *ngIf="proveedor == '1'">
+                    <span>{{politica.fecha_limite_inicial}}</span> <br>
+                    $ <span>{{politica.precio}}</span>
+                  </div>
+                  <div *ngIf="proveedor == '5'">
+                    {{politica.fecha_limite_inicial}}<br>
+                    {{politica.precio}}
+                  </div>
+                  {{politica.nota}}
+                </ion-col>
+              </ion-row>
+            </div>
+      
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-icon name="calendar"> </ion-icon>
+      Desglose de fechas
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid >
+        <ion-row>
+          <ion-col hidden="{{ocultarFechas}}">
+            <div *ngFor="let habitaciones of Habitaciones; let i = index">
+              
+              <ion-grid style="font-size: 12px;">
+                <ion-row *ngIf="Habitaciones.length > 1">
+                  <ion-col>
+                    Habitacion {{i + 1}}
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col style="border: solid 1px black;">
+                    <b>Fecha</b> 
+                  </ion-col>
+                  <ion-col style="border: solid 1px black;">
+                    <b>Adultos: {{habitaciones.resumen.adultos}}</b> 
+                  </ion-col>
+                  <ion-col *ngIf="proveedor != '1' && proveedor != '5' && proveedor !='3'" style="border: solid 1px black;">
+                    <b>Menores: {{habitaciones.resumen.menores}}</b> 
+                  </ion-col>
+                  <ion-col style="border: solid 1px black;">
+                    <b>Importe</b> 
+                  </ion-col>
+                </ion-row> 
+                <div *ngFor="let fechas of habitaciones.Fechas">    
+                  <ion-row >
+                    <ion-col style="border: solid 1px black;">
+                      {{fechas.Fecha}}
+                    </ion-col>
+                    <ion-col style="border: solid 1px black;text-align: right;">
+                      $ {{fechas.Adultos}}
+                    </ion-col>
+                    <ion-col *ngIf="proveedor != '1' && proveedor != '5' && proveedor !='3'" style="border: solid 1px black;text-align: right;">
+                      $ {{fechas.Menores}} 
+                    </ion-col>
+                    <ion-col style="border: solid 1px black;text-align: right;">
+                      $ {{fechas.total}} {{fechas.moneda}}
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div>    
+                  <ion-row>
+                    <ion-col size=6 style="border: solid 1px black;">
+                      <b>Total: </b>
+                    </ion-col>
+                    <ion-col size=6 style="border: solid 1px black; text-align: right;">
+                      $ {{habitaciones.Total.total}} {{habitaciones.Total.moneda}}
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </ion-grid>
+            </div>      
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!--<ion-card>
+    <ion-card-header>
+      <ion-icon name="bookmark"> </ion-icon>
+      Promociones
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid >
+        <ion-row>
+          <ion-col>
+            <div *ngFor="let promocion of Promocion">    
+              <ion-row>
+                <ion-col style="color: #8a6d3b">
+                  {{promocion.descripcion}} <br>-->
+  
+                  <!--<div *ngFor="let promociones of promocion.promotions">    
+                    <ion-row>
+                      <ion-col style="color: #8a6d3b">
+                        {{promociones.nombre}} <br>
+                        {{promociones.descuento}} <br>      
+                      </ion-col>
+                    </ion-row>
+                  </div>-->
+  
+                <!--</ion-col>
+              </ion-row>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>-->
+
+</ion-content>

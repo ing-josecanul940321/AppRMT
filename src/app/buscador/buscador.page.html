@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Cotizador de tarifas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding"> 
+
+    <ion-card>
+    <ion-card-content>
+     <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">
+                <ion-icon name="map" item-start></ion-icon>
+                Hotel/Destino
+              </ion-label>
+              <ion-input color="tertiary" placeholder="Seleccione su Hotel/Destino" (click)="openHotelDestino()" value="{{buscador.HotelDestino}}"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">
+                <ion-icon name="calendar" item-start></ion-icon>
+                Estancia
+              </ion-label>
+              <ion-input color="tertiary" (click)="openCalendario()" value="{{buscador.Fechas}}"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row> 
+        <ion-row *ngFor="let i of buscador.Habitaciones">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">
+                <ion-icon name="people" item-start></ion-icon>
+                Habitacion {{i.Habitacion}}
+              </ion-label>
+              <ion-input color="tertiary" (click)="openHabitacion(i.Habitacion)" value="{{ dataName(i.Habitacion) }}"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1">
+              <ion-icon style="color: #001781;" name="close" (click)="quitarHabitacion(i.Habitacion)"></ion-icon>
+          </ion-col>
+        </ion-row> 
+        <ion-row style="text-align: center;color: #001781;" (click)="nuevaHabitacion()">
+          <ion-col>
+              <ion-icon name="add"> </ion-icon>
+              Agregar habitación
+          </ion-col>        
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="primary" shape="round" (click)="Buscar()">
+              <ion-icon name="search"> </ion-icon>
+                Buscar
+            </ion-button>
+          </ion-col>      
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    
+  </ion-card>
+
+  
+
+</ion-content>

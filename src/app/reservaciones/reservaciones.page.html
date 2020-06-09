@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      Reservaciones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar (ionInput)="buscarCliente($event)" placeholder="Nombre del cliente" ></ion-searchbar>
+
+  <ion-list>
+      <ion-item *ngFor="let item of items" (click)="openReservacion(item)">
+        <ion-avatar slot="start">
+          <ion-badge  [color]="item.estatus=='C' ? 'danger' : 'success'"  style="border-radius: 100px; height: 45px;width: 45px">            
+            <span style="font-size: 20px"> {{item.fecha_limite | date:'dd'}}</span>
+              <br>
+            <span style="font-size: 12px">{{item.fecha_limite | date:'MMM'}}</span>         
+          </ion-badge> 
+        </ion-avatar>
+        <ion-label>
+          <h3><b>{{item.nombre_hotel}}</b></h3>
+          <h3>{{item.fecha_inicial | date:'dd-MMM'}} <span style="margin-left: 20px">{{item.saldo|currency}}</span></h3>
+          <p>{{item.nombre_cliente}}</p>
+        </ion-label>
+        <ion-badge item-end style="margin-bottom: 45px;background-color: #3f51b5">{{item.id_reservacion}}</ion-badge>
+      </ion-item>
+  </ion-list>
+
+</ion-content>

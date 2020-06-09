@@ -1,0 +1,280 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Reservar
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding"> 
+
+<form #form="ngForm" (ngSubmit)="postReservar(form)">
+
+  
+
+  <ion-card style="margin: 0px;">
+    <ion-card-header style="background-color: #5968ad;color:white">
+      Detalles
+    </ion-card-header>
+    <ion-card-content style="text-align: center;">
+      <ion-grid>
+        <!-- <ion-row>
+          <ion-col>
+            <span>
+              Tiempo: <b style="color: red;"></b><br>
+            </span>
+          </ion-col>
+        </ion-row> -->
+        <ion-row>
+          <ion-col size="6">
+            <span>
+              Check in: {{FechaInicial}}<br>
+            </span>
+          </ion-col>
+          <ion-col size="6">
+            <span>
+              Check out: {{FechaFinal}}<br>
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <span>
+              Cuartos: {{Reserva.resultadoBusquedaHoteles.habitaciones}}<br>
+            </span>
+          </ion-col>
+          <ion-col size="6">
+            <span>
+              Noches: {{Reserva.resultadoBusquedaHoteles.noches}}<br>
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <span>
+              Adultos: {{totalAdultos}}<br>
+            </span>
+          </ion-col>
+          <ion-col size="6">
+            <span>
+              Menores: {{totalMenores}} <br>
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span style="color: red;">
+              Total: $ <b>{{ formatoPrecio(Reserva.model.total) }} {{Reserva.datos_generales.moneda}}</b><br>
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Datos de Reservación
+    </ion-card-header>
+    <ion-card-subtitle>
+      {{Tarifa.nombre_hotel}} | {{Tarifa.destino.name}}, {{Tarifa.destino.destinationsCode0}}
+    </ion-card-subtitle>
+    <ion-card-content>
+      Plan: {{Reserva.datos_generales.tipo_plan}}
+     <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Agente Ruta Maya</ion-label>
+                <ion-select [(ngModel)]="reservacion.Agente" name="Agente"  placeholder="Seleccionar Agente" interface="popover">
+                  <ion-select-option *ngFor="let agente of Agentes" value="{{agente.id_usuario}}">{{agente.nombre_usuario}}</ion-select-option>
+                </ion-select>
+            </ion-item>    
+          </ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Agencia</ion-label>
+              <ion-input *ngIf="usuario.datosUsuario.id_agencia === '9'" placeholder="Seleccionar Agencia" (click)="DatosAgencia()" name="Agencia" value="{{nombreAgencia}}"></ion-input>
+              <ion-input *ngIf="usuario.datosUsuario.id_agencia !== '9'" name="Agencia" value="{{nombreAgencia}}" readonly></ion-input>
+            </ion-item> 
+          </ion-col>
+        </ion-row> 
+     </ion-grid>
+    </ion-card-content>    
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Desglose de habitaciones
+    </ion-card-header>
+    <ion-card-subtitle>
+      Por favor llene todos los nombres de los pasajeros adultos.
+    </ion-card-subtitle>
+    <ion-card-content>
+     <ion-grid *ngFor="let Habitacion of Habitaciones;let i = index">
+      <ion-row style="background-color: #f4f5f8;padding:5px">
+        <ion-col>
+          Habitación # {{i + 1}}: {{Habitacion.nombreHabitacion}}
+        </ion-col>
+      </ion-row>
+      <div  *ngFor="let adultos of Habitacion.Adultos">
+       
+        <ion-row style="padding:5px">
+          <ion-col>
+            <b>Adulto {{adultos.n}}:</b> 
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">
+                Nombre
+              </ion-label>
+              <ion-input color="tertiary" [(ngModel)]="adultos.nombre" name="NombreAdulto"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">
+                Apellido
+              </ion-label>
+              <ion-input color="tertiary" [(ngModel)]="adultos.apellido" name="ApellidoAdulto"></ion-input>
+            </ion-item>
+          </ion-col>          
+        </ion-row> 
+        
+      </div>
+      <div  *ngFor="let menores of Habitacion.Menores">
+       
+        <ion-row style="padding:5px">
+          <ion-col>
+            <b>Menor {{menores.n}}:</b> 
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">
+                Nombre
+              </ion-label>
+              <ion-input color="tertiary" [(ngModel)]="menores.nombre" name="NombreMenor"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">
+                Apellido
+              </ion-label>
+              <ion-input color="tertiary" [(ngModel)]="menores.apellido" name="ApellidoMenor"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="floating">
+                Edad
+              </ion-label>
+              <ion-input color="tertiary"  value="{{menores.edad}}" readonly></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row> 
+        
+      </div>
+      <div *ngIf="Habitacion.offers.length > 0" style="padding-top: 15px;">
+        <ion-row style="padding:5px">
+          <ion-col size="12">
+            <h2>Ofertas</h2>
+            <ul>
+              <li *ngFor="let oferta of Habitacion.offers">
+                {{ oferta.name }} de $ {{ parseOffer(oferta.amount) }}
+              </li>
+            </ul>
+          </ion-col>
+        </ion-row>
+      </div> 
+      <div *ngIf="Habitacion.rateComments !== ''">
+        <ion-row style="padding:5px">
+          <ion-col>
+            <h2>Comentarios</h2> 
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span>{{ Habitacion.rateComments }}</span>
+          </ion-col>
+        </ion-row>
+      </div>     
+     </ion-grid>
+    </ion-card-content>    
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Información adicional
+    </ion-card-header>
+    <ion-card-content>
+     <ion-grid>
+       <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Observaciones</ion-label>
+            <ion-textarea [(ngModel)]="Reserva.model.observaciones" name="observaciones"></ion-textarea>
+          </ion-item> 
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="promociones !== ''" style="padding-top:15px;">
+        <ion-col>
+          <h2>Promociones</h2>
+          <div style="padding-top:5px;" [innerHTML]="promociones"></div>
+          <!-- <span>{{Base64.decode(Reserva.promociones)}}</span> -->
+        </ion-col>
+      </ion-row>
+     </ion-grid>
+    </ion-card-content>    
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Políticas de Cancelación
+    </ion-card-header>
+    <ion-card-content>
+     <ion-grid>
+       <ion-row>
+        <ion-col size="8">
+          <span>Fecha límite para pagar</span> 
+        </ion-col>
+        <ion-col size="4">
+          <span><b>{{FechaLimite}}</b></span> 
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <span>Total</span> 
+        </ion-col>
+        <ion-col size="7" style="font-size: 18px;">
+          $ <b>{{ formatoPrecio(Reserva.model.total) }} {{Reserva.datos_generales.moneda}}</b>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" style="padding-top:15px;">
+          <span><b>*Tarifas sujetas a cambios sin previo aviso</b></span>
+        </ion-col>
+        <ion-col size="12" style="text-align: justify !important; padding-top:15px;">
+          <ion-checkbox color="secondary" [(ngModel)]="condiciones" name="condiciones" value="1"></ion-checkbox>
+          <b> Acepto los <a target="_blank" href="https://www.rutamayatravel.com/formatos/Terminos-y-condiciones-Grales-de-contat-de-servicios-a-RMT.pdf">términos y condiciones</a> y las políticas de cancelación.</b> 
+        </ion-col>
+      </ion-row>
+     </ion-grid>
+    </ion-card-content>    
+  </ion-card>
+
+  <ion-button type="ngSubmit" expand="full" color="tertiary" [disabled]="disableButton">
+    <ion-spinner name="crescent" [hidden]="showSpinner"></ion-spinner> 
+    Reservar
+  </ion-button>
+</form>
+</ion-content>

@@ -1,0 +1,21 @@
+:host {
+    ion-content {
+        --background: var(--ion-color-light);        
+    }
+
+    ion-card {
+        background-color: white;
+        border-radius: 0;
+        margin: 0px;
+
+        ion-card-header{
+            background-color: #5968ad;
+            color: white;
+        }
+
+        ion-card-content{
+            padding: 0;
+        }
+    }
+    
+}

@@ -1,0 +1,32 @@
+ion-content {
+    background-color: #c0c0ff;
+    .cupon-content {
+      background-color: #ffffff;
+      .cupon-area {
+        .header-cupon {
+            background-color: #18AC52;
+            margin: 2%;
+            color: #ffffff;
+            padding: 5px;
+        }
+        h1, h3, h2 {
+          text-align: center;
+        }
+        h3 {
+          margin-top: 20px;
+        }
+        .detail-table {
+          margin: 2%;
+          width: 96%;
+          border-top: 2px solid #CCC;
+          border-bottom: 2px solid #CCC;
+          th, td {
+            padding: 5px;
+          }
+          th {
+            border-bottom: 2px solid #CCC;
+          }
+        }
+      }
+    }
+  }

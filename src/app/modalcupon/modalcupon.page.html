@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Confirmación
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <ion-card class="cupon-content">
+    <ion-card-content class="cupon-area" id="cupon-area">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" class="header-cupon">
+            Su reservación ha sido creada con éxito <br>
+            Su número de cupón es: <b>#{{cupon}}</b>
+          </ion-col>
+          <ion-col size="12">
+            <b>Estatus: </b> Recibida <br>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <h2>Detalles</h2>
+      <table class="detail-table">
+        <tr>
+          <td>Cupón#</td>
+          <td>{{cupon}}</td>
+        </tr>
+        <tr>
+          <td>Fecha de reservación:</td>
+          <td>{{log}}</td>
+        </tr>
+        <!-- <tr>
+          <td>Hotel:</td>
+          <td>Gran Bahia Principe</td>
+        </tr>
+        <tr>
+          <td>Adultos:</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Menores:</td>
+          <td>0</td>
+        </tr> -->
+        <tr>
+          <td>Total:</td>
+          <td>$ {{total}}</td>
+        </tr>
+      </table>
+      <div style="padding-top: 5px;">
+        <span style="text-align: justify;">
+          Estimado cliente, su nueva reservación está pendiente de pago. <br><br> Los comprobantes de pagos realizados deberán ser enviados al área de contabilidad de Ruta Maya Travel:
+          <b>contabilidad@rutamayatravel.com</b><br>
+          Agradecemos su pronto pago.
+        </span> <br> <br>
+        <ion-button color="secondary" size="small" (click)="openReservacion(cupon)">
+          <ion-spinner name="crescent" [hidden]="showSpinner"></ion-spinner>  
+          Continuar
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

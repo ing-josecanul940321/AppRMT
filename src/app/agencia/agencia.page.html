@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      Mi agencia
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid style="display: flex; align-content: center;">
+    <ion-row>
+      <ion-col size="4">
+        <img width="120" height="120" style="border-radius: 100%; border:2px #eee solid;"
+          src="https://rutamayatravel.com/imagenes/{{usuario.datosUsuario.foto1}}" alt="">
+      </ion-col>
+      <ion-col>
+        <ion-label>
+          <h3>{{usuario.datosUsuario.nombre_agencia}}</h3>
+          <p>{{usuario.datosUsuario.nombre_usuario}}</p>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card>
+    <ion-card-header color="primary">
+      <ion-card-subtitle>Resúmen</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content style="padding-top: 10px;">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            Comisión:
+          </ion-col>
+          <ion-col style="text-align: right;">
+            <ion-badge style="background-color: green;">{{usuario.datosUsuario.porcentaje_comision}}%</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            Cuartos/Noches:
+          </ion-col>
+          <ion-col style="text-align: right;">
+            <ion-badge style="background-color: #ffc107;">{{usuario.datosAgenciaDesglose.cuartos_noches}}</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            Comisión:
+          </ion-col>
+          <ion-col style="text-align: right;">
+            <ion-badge style="background-color: #0062cc;">{{usuario.datosAgenciaDesglose.importe_ventas | currency}}</ion-badge>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header color="primary">
+      <ion-card-subtitle>Datos de contacto</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content style="padding-top: 10px;">
+
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon style="font-size: 32px" name="globe" style="padding-right: 10px;">
+          </ion-icon>{{usuario.datosUsuario.url_agencia}}
+        </ion-item>
+        <ion-item>
+          <ion-icon style="font-size: 32px" name="call" style="padding-right: 10px;">
+          </ion-icon>{{usuario.datosUsuario.tel_agencia}}
+        </ion-item>
+        <ion-item>
+          <ion-icon style="font-size: 32px" name="pin" style="padding-right: 10px;">
+          </ion-icon>{{usuario.datosUsuario.calle_agencia}} {{usuario.datosUsuario.cp_agencia}}
+          {{usuario.datosUsuario.id_colonia_agencia}} {{usuario.datosUsuario.id_ciudad_agencia}}
+          {{usuario.datosUsuario.id_estado_agencia}}
+        </ion-item>
+        <ion-item>
+          <ion-icon style="font-size: 32px" name="mail" style="padding-right: 10px;">
+          </ion-icon>{{usuario.datosUsuario.email_usuario}}
+        </ion-item>
+        <ion-item>
+          <ion-icon style="font-size: 32px" name="person" style="padding-right: 10px;">
+          </ion-icon>{{usuario.datosUsuario.contacto}}
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header color="primary">
+      <ion-card-subtitle>Datos de facturación</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content style="padding-top: 10px;">
+
+      <ion-list lines="none">
+        <ion-item>
+          {{usuario.datosUsuario.rfc}}
+        </ion-item>
+        <ion-item>
+          {{usuario.datosUsuario.razon_social}}
+        </ion-item>
+        <ion-item>
+          Calle {{usuario.datosUsuario.calle_fiscal}} # {{usuario.datosUsuario.num_exterior_fiscal}} x
+          {{usuario.datosUsuario.cruzamientos_fiscal}} {{usuario.datosUsuario.id_colonia_agencia}}
+          {{usuario.datosUsuario.id_ciudad_agencia}} C.P. {{usuario.datosUsuario.cp_agencia}}
+        </ion-item>
+      </ion-list>
+
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

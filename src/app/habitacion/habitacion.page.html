@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Habitación {{Detalles.nId}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8">
+        <ion-item>
+          <ion-label position="floating">Adultos</ion-label>
+          <ion-input disabled="true" name="Adultos" value="{{Detalles.nAdultos}}"></ion-input>
+        </ion-item>
+      </ion-col>      
+      <ion-col size="2">
+        <ion-button class="rmt-azul" (click)="rmAdulto()"><ion-icon name="md-remove-circle"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button class="rmt-azul" (click)="addAdulto()"><ion-icon name="md-add-circle"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8">
+        <ion-item>
+          <ion-label position="floating">Menores</ion-label>
+          <ion-input disabled="true" name="Menores" value="{{Detalles.nNinios}}"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button class="rmt-azul" (click)="rmMenor()"><ion-icon name="md-remove-circle"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button class="rmt-azul" (click)="addMenor()"><ion-icon name="md-add-circle"></ion-icon></ion-button>
+      </ion-col>      
+    </ion-row>
+    <form #form="ngForm" (ngSubmit)="postHabitacion(form)">
+    
+    <ion-row *ngIf="Detalles.nNinios == '0' ? '' : 'hidden' ">
+      <ion-col style="text-align: center;">
+        <ion-label>Edad de los menores</ion-label>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row *ngFor="let i of buscador.Edades">
+      <ion-col>
+        <ion-item>
+          <ion-label>Edad</ion-label>
+            <ion-select [selectedText]="i.Edad" name="Edad" [(ngModel)]="i.Edad" interface="popover">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="8">8</ion-select-option>
+              <ion-select-option value="9">9</ion-select-option>
+              <ion-select-option value="10">10</ion-select-option>
+              <ion-select-option value="11">11</ion-select-option>
+              <ion-select-option value="12">12</ion-select-option>
+              <ion-select-option value="13">13</ion-select-option>
+              <ion-select-option value="14">14</ion-select-option>
+              <ion-select-option value="15">15</ion-select-option>
+              <ion-select-option value="16">16</ion-select-option>
+              <ion-select-option value="17">17</ion-select-option>
+            </ion-select>
+        </ion-item>        
+      </ion-col>
+    </ion-row> 
+    <ion-row>
+      <ion-col>
+        <ion-button type="ngSubmit" class="rmt-azul" expand="block">Aplicar</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>  
+  </ion-grid>
+</ion-content>

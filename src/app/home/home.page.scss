@@ -1,0 +1,28 @@
+:host {
+
+    
+    span {
+        color:white;
+        font-size: 12px;
+    }
+
+    ion-content{
+        text-align: center;
+    }
+
+    ion-card {
+        background-color: var(--ion-color-primary);
+        text-align: center;
+    }
+
+    
+    ion-icon {
+        color: white;
+    }
+
+    img {
+        max-height: 200px;
+    }
+
+    
+}

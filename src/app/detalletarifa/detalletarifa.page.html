@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      {{NombreHotel}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" shape="round" (click)="salirModal()" color="light">
+        <ion-icon name="backspace"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content color="light"> 
+
+  <ion-card style="margin: 0px;">
+    <ion-card-header style="background-color: #5968ad;color:white">
+      Detalles del hotel
+    </ion-card-header>
+    <ion-fab horizontal="end" vertical="top">
+      <ion-fab-button>
+        <ion-icon hidden="{{arrowVer}}" name="arrow-dropdown" (click)="ver()"></ion-icon>
+        <ion-icon hidden="{{ocultar}}" name="arrow-dropup" (click)="ocult()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-card-content>
+      <span *ngIf="typeof(estrellas) === 'object'; else conditionStar" style="color: #F90;">
+        <ion-icon *ngFor="let star of estrellas" class="text-primary icon icon-md ion-md-star" name="star"></ion-icon>
+      </span>
+      <ng-template #conditionStar>
+        {{ estrellas }}
+      </ng-template>
+
+      <ion-grid hidden="{{ocultar}}">
+        <ion-row>
+          <ion-col>
+            <span>
+              Descripción: <br>
+              {{Descripcion}}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="ion-no-margin bg-white no-radius">
+    <ion-item lines="none">
+      <ion-label style="color: #001781;">
+        <b>
+          <ion-icon name="map"></ion-icon>
+          <ion-text> Habitaciones</ion-text>
+        </b>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <div *ngFor="let hab of Habitacion">
+
+    <ion-card>
+      <ion-card-header style="background-color: #001781;">
+        <ion-text color="#fff"><b>{{hab.nombre_hab}}</b></ion-text>
+      </ion-card-header>
+      <ion-card-content style="padding: 10px;">
+        <div *ngFor="let Plan of hab.Planes">
+          <div *ngFor="let plan of Plan.plan; let i = index" (click)="openHabitacion(plan)" >
+            <ion-row>
+              <ion-col style="color: black;">
+                <ion-icon name="restaurant"></ion-icon> <b> {{plan.tipo_plan}}</b><br>
+              </ion-col>              
+            </ion-row>
+            <div style="background-color: #f4f5f8;padding:5px">
+              {{ Proveedor == '0' ? plan.nombrePlan : Proveedor != '0' && idAgencia == 9 ? plan.nombrePlan : '' }}
+              <div *ngIf="(Proveedor == '2' || Proveedor == '4' || Proveedor == '5') && buscador.front_form.habs > 1">
+                Habitación {{i+1}}
+              </div>
+              <ion-row *ngIf="plan.reembolsable">
+                <ion-col>
+                  <ion-badge color="danger"><b>{{plan.reembolsable}}</b></ion-badge>
+                </ion-col>              
+              </ion-row>
+              <ion-row>
+                <ion-col size="7">
+                  <ion-text *ngIf="Proveedor != '1' ? '' : 'hidden'">{{plan.habitaciones_disponibles}} Habitaciones disponibles</ion-text>
+                </ion-col>
+                <ion-col size="5" style="text-align: right;" >
+                  <ion-text color="primary"><b>$ {{plan.precio}} {{plan.moneda}}</b></ion-text>
+                </ion-col>
+              </ion-row>
+            </div>
+            
+          </div>
+
+          <div *ngIf="(Proveedor == '2' || Proveedor == '4' || Proveedor == '5') && buscador.front_form.habs > 1">
+            <ion-row>
+              <ion-col style="text-align: right;">
+                <h3 style="color: #001781; font-size: 18px;"><b>Total: $ {{Plan.Total_planes==null ? '' : Plan.Total_planes.precio}} {{Plan.Total_planes==null ? '' : Plan.Total_planes.moneda}}</b></h3>
+              </ion-col>
+            </ion-row>
+          </div> 
+          
+          <ion-row style="text-align: right;">
+            <ion-col>
+              <a [hidden]="Plan.tipo_boton == 'OUTLET' ? '':'hidden'" data-toggle="tooltip" data-original-title="La tarifa estará disponible únicamente para agencias participantes durante las fechas del evento.">
+                <img [src]="'https://www.rutamayatravel.com/sur4/'+Plan.btnHtml.link" alt="OUTLET" height="36" />
+              </a>
+              <ion-button
+              (click)="Plan.botonReservar == true ? postReservar(Plan) : ''"
+              shape="round"
+              size="small" 
+              [hidden]="Plan.tipo_boton == 'OUTLET' ? 'hidden':''"
+              [color]="
+              Plan.botonReservar == true ? 'success' :
+               Plan.tipo_boton == 'SINFECHAS' ? 'danger' : 
+               Plan.tipo_boton == 'RESTRICCIONES' ? 'warning' : 
+               Plan.tipo_boton == 'OUTLETGRUPOS' || Plan.tipo_boton == 'PROMOGRUPOS' ? 'info' : 
+               Plan.tipo_boton == 'OB' ? 'danger' : 
+               Plan.tipo_boton == 'BLOQUEO' ? 'info' : ''   
+               ">{{Plan.botonReservar == true ? 'RESERVAR' : 
+                    Plan.tipo_boton == 'SINFECHAS' ? 'Disponibilidad' : 
+                    Plan.tipo_boton == 'RESTRICCIONES' ? 'DISPONIBILIDAD' : 
+                    Plan.tipo_boton == 'OUTLETGRUPOS' ? 'Solicitar Grupo' : 
+                    Plan.tipo_boton == 'OB' ? 'DISPONIBILIDAD' : 
+                    Plan.tipo_boton == 'BLOQUEO' ? 'IR AL BLOQUEO' : ''}}</ion-button>         
+            </ion-col>
+          </ion-row>
+          
+          
+        </div>
+               
+      </ion-card-content>
+      
+    </ion-card>
+  </div>
+  
+
+
+  
+
+</ion-content>
+

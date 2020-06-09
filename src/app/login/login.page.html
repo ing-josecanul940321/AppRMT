@@ -1,0 +1,63 @@
+<div class="padding" style="background-image: url(assets/img/Fondo.png);background-repeat: no-repeat;background-size: cover;background-position: center;min-height: 100%;">
+
+  <div padding-horizontal text-center class="animated fadeInDown">
+    <img style="height: 200px;margin-top: 100px;" src="assets/img/Logo.png" />
+    <h1 no-margin>
+      <ion-text style="color: #001781;">
+        <strong> Ruta Maya Travel </strong>
+      </ion-text>
+    </h1>
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="doLogin(form)" class="list-form" style="align-content: center;margin-top: 80px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>            
+            <ion-label style="color: black;" position="floating"> <ion-icon name="mail" item-start></ion-icon> Correo</ion-label>
+            <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>            
+            <ion-label style="color: black;" position="floating"> <ion-icon name="lock" item-start></ion-icon> Contraseña</ion-label>
+            <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="ngSubmit" size="medium" expand="full" class="rmt-azul" >
+            <ion-icon name="log-in"></ion-icon>
+            <ion-text>Iniciar sesión</ion-text>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row style="text-align: center;">
+        <ion-col><ion-label color="dark">Siguenos en:</ion-label></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button href="https://facebook.com/RutaMayaTravel/?ref/aymt_homepage_panel" class="btn-facebook" expand="block"><ion-icon name="logo-facebook"></ion-icon></ion-button>
+        </ion-col>
+        <ion-col>
+            <ion-button href="https://www.instagram.com/rutamayatravel" expand="block" class="btn-instagram"><ion-icon name="logo-instagram"></ion-icon></ion-button>
+        </ion-col>
+        <ion-col>
+            <ion-button href="https://youtube.com/channel/UCjssE9LVR20ZiCRXBvnqkmA" expand="block" class="btn-gplus"><ion-icon name="logo-youtube"></ion-icon></ion-button>          
+        </ion-col>
+      </ion-row>
+      <ion-row style="text-align: center">
+        <ion-col>
+          <a style="color: black;" href="https://www.rutamayatravel.com/contacto.html">Necesitas Ayuda? <strong>Contáctanos</strong></a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</div>
